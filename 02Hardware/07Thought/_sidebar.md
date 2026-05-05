@@ -1,5 +1,4 @@
 * [🔙 返回上一级](/02Hardware/README.md)
-
 * [01Introduction](/02Hardware/07Thought/01Introduction.md)
 * [02SIMTSIMD](/02Hardware/07Thought/02SIMTSIMD.md)
 * [03SPMT](/02Hardware/07Thought/03SPMT.md)
