@@ -1,0 +1,45 @@
+name: Deploy index.html to GitHub Pages
+
+on:
+  push:
+    branches: 
+      - "main"
+    paths:
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout index.html only
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            index.html
+          sparse-checkout-cone-mode: false
+
+      - name: move index.html to dir
+        run: |
+          mkdir public
+          mv index.html public/
+
+      - name: config GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
